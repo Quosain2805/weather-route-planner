@@ -9,7 +9,7 @@ A React + Django web app that helps a truck driver pick the **safest** route for
 5. shows everything on a map, with a **0 to 48 hour weather heatmap** along the trip corridor,
 6. and tells the driver **when to leave**: it re-scores all three routes for every start time in the next 48 hours and, if waiting would clearly help, says so ("Leave 7 hours later and No Travel miles fall from 100 to 0") with a one-click re-plan.
 
-**Live app:** https://weather-route-planner-qz-s-projects1.vercel.app &nbsp;·&nbsp; **Walkthrough:** _add the Loom link here_
+**Live app:** https://clearway-routing.vercel.app &nbsp;·&nbsp; **Walkthrough:** _add the Loom link here_
 
 ---
 
