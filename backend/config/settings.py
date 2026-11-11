@@ -21,8 +21,10 @@ if not SECRET_KEY:
     raise RuntimeError("Set DJANGO_SECRET_KEY (or DJANGO_DEBUG=1 for local development).")
 
 ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1" if DEBUG else "")
-if render_host := os.environ.get("RENDER_EXTERNAL_HOSTNAME"):
-    ALLOWED_HOSTS.append(render_host)
+# Hostnames the hosting platform assigns (Render, Vercel production/preview URLs).
+for _host_var in ("RENDER_EXTERNAL_HOSTNAME", "VERCEL_URL", "VERCEL_BRANCH_URL", "VERCEL_PROJECT_PRODUCTION_URL"):
+    if _host := os.environ.get(_host_var):
+        ALLOWED_HOSTS.append(_host)
 
 INSTALLED_APPS = [
     # DRF's request/throttle machinery imports the auth models (AnonymousUser) even though we

@@ -102,6 +102,7 @@ Each checkpoint "owns" the road halfway to its neighbours, so the per-risk milea
 ## Architecture
 
 ```
+api/index.py               Vercel serverless entry point (wraps the Django app)
 backend/
   config/                  settings (env-driven), urls, wsgi
   routing/
@@ -211,11 +212,17 @@ Backend coverage focuses on what matters most for correctness:
 
 ## Deployment
 
-One container serves both the API and the built React app (WhiteNoise), so there is a single service to host. `Dockerfile` and `render.yaml` are included.
+**Vercel (one project).** The React build is served as static files and Django runs as a serverless function under `/api` (`api/index.py`, routed by `vercel.json`), so there is a single domain and no CORS.
 
-**Render:** New → Blueprint → select this repo. `DJANGO_SECRET_KEY` is generated; the service's hostname is allowed automatically; `/api/health` is the health check. Any host that runs a Dockerfile works the same way (set `DJANGO_SECRET_KEY`, and `DJANGO_ALLOWED_HOSTS` if the platform doesn't provide a hostname variable).
+1. Import the repository in Vercel (**Add New → Project**). Leave **Root Directory** as the repository root, and the framework preset as **Other**; `vercel.json` supplies the build settings.
+2. Add one environment variable: `DJANGO_SECRET_KEY` (any long random string).
+3. Deploy. Hostnames Vercel assigns are allowed automatically.
 
-Note that free hosts sleep when idle, so the first request after a pause can take about a minute.
+Requests can take several seconds on long trips (they wait on the routing and weather services), so the function's `maxDuration` is set to 60 s. The first request after idle includes a cold start.
+
+**Docker / Render.** One container serves both the API and the built React app (WhiteNoise): `Dockerfile` and `render.yaml` are included. On Render choose New → Blueprint and select this repo; `DJANGO_SECRET_KEY` is generated and `/api/health` is the health check. Any host that runs a Dockerfile works the same way (set `DJANGO_SECRET_KEY`, and `DJANGO_ALLOWED_HOSTS` if the platform doesn't provide a hostname variable).
+
+Free hosts sleep or cold-start when idle, so the first request after a pause can be slow.
 
 ## Design decisions and trade-offs
 
