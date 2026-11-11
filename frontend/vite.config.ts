@@ -1,0 +1,12 @@
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vitest/config'
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    // In development the Django API runs separately; proxying keeps the browser same-origin.
+    proxy: { '/api': 'http://localhost:8000' },
+  },
+  build: { chunkSizeWarningLimit: 700 },
+  test: { environment: 'node' },
+})

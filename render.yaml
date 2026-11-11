@@ -1,0 +1,13 @@
+# Render blueprint: New + > Blueprint, point it at this repository.
+services:
+  - type: web
+    name: weather-route-planner
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      # Optional: a paid Open-Meteo key lifts the free tier's rate limit.
+      # - key: OPEN_METEO_API_KEY
+      #   sync: false
