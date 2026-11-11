@@ -25,7 +25,7 @@
     "oxlint": "^1.90.0",
     "typescript": "~7.0.2",
     "vite": "^6.4.6",
-    "vitest": "^3.2.7"
+    "vitest": "^5.1.0"
   },
   "overrides": {
     "rollup": "npm:@rollup/wasm-node@^4"
