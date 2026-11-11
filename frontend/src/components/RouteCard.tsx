@@ -33,11 +33,11 @@ export function RouteCard({ route, colorIndex, selected, focusedCheckpoint, onSe
             <span className="route-name">{route.via || route.name}</span>
             <i className="route-swatch" aria-hidden="true" />
           </strong>
-          <span className="route-via">{route.name}</span>
-        </span>
-        <span className="route-tags">
-          {route.recommended && <span className="tag tag-recommended">Recommended</span>}
-          {route.fastest && <span className="tag">Fastest</span>}
+          <span className="route-sub">
+            <span className="route-via">{route.name}</span>
+            {route.recommended && <span className="tag tag-recommended">Recommended</span>}
+            {route.fastest && <span className="tag">Fastest</span>}
+          </span>
         </span>
       </button>
 

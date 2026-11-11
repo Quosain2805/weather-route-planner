@@ -46,6 +46,7 @@ function FitToRoutes({ data }: { data: AnalyzeResponse | null }) {
       paddingTopLeft: wide ? [SIDEBAR_PX + 64, 56] : [28, 28],
       paddingBottomRight: wide ? [56, 210] : [28, 28],
       maxZoom: 11,
+      animate: false, // an animated zoom briefly stretches the route dots and blurs the tiles
     })
   }, [data, map])
   return null
@@ -54,7 +55,10 @@ function FitToRoutes({ data }: { data: AnalyzeResponse | null }) {
 function FlyToCheckpoint({ checkpoint }: { checkpoint: Checkpoint | null }) {
   const map = useMap()
   useEffect(() => {
-    if (checkpoint) map.flyTo([checkpoint.lat, checkpoint.lon], Math.max(map.getZoom(), 8), { duration: 0.6 })
+    if (!checkpoint) return
+    const target: L.LatLngTuple = [checkpoint.lat, checkpoint.lon]
+    if (map.getZoom() >= 8) map.panTo(target, { animate: true, duration: 0.5 })
+    else map.setView(target, 8, { animate: false })
   }, [checkpoint, map])
   return null
 }

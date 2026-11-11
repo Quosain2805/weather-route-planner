@@ -67,7 +67,7 @@ button { cursor: pointer; }
 /* ---------- Shell: full-bleed map, floating panels ---------- */
 .app { position: relative; height: 100dvh; overflow: hidden; background: var(--bg); }
 .map-pane { position: absolute; inset: 0; }
-.map { width: 100%; height: 100%; background: #0d1218; }
+.map { width: 100%; height: 100%; background: #2a2d32; }
 .map-vignette {
   position: absolute;
   inset: 0;
@@ -363,11 +363,11 @@ input[type='datetime-local']::-webkit-calendar-picker-indicator { filter: invert
 }
 .is-recommended .route-rank { color: var(--on-amber); background: var(--amber); border-color: var(--amber); box-shadow: 0 0 18px rgb(255 184 28 / 0.35); }
 .route-title { display: flex; flex-direction: column; min-width: 0; flex: 1; }
-.route-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.route-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.route-sub { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 3px; }
 .route-title strong { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-size: 21px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; line-height: 1.1; }
 .route-swatch { flex: none; display: inline-block; width: 22px; height: 4px; border-radius: 3px; background: var(--route); }
-.route-via { color: var(--muted); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.route-tags { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+.route-via { color: var(--muted); font-size: 12.5px; white-space: nowrap; }
 .tag { padding: 3px 9px; border-radius: 6px; background: var(--raise-2); color: var(--text-2); font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; white-space: nowrap; }
 .tag-recommended { background: var(--amber-soft); color: var(--amber); box-shadow: inset 0 0 0 1px rgb(255 184 28 / 0.45); }
 
@@ -545,7 +545,7 @@ input[type='range']:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 2px 
 .legend-unit { grid-column: 2; grid-row: 1 / span 2; font-family: var(--mono); font-size: 10.5px; color: var(--muted); }
 
 /* ---------- Leaflet, dark ---------- */
-.leaflet-container { font-family: var(--body); background: #0d1218; }
+.leaflet-container { font-family: var(--body); background: #2a2d32; } /* ~ the basemap grey, so tiles still loading don't show as black patches */
 .leaflet-bar { border: 1px solid var(--line-strong) !important; box-shadow: var(--shadow) !important; border-radius: 12px !important; overflow: hidden; }
 .leaflet-bar a { background: var(--panel-solid); color: var(--text); border-bottom: 1px solid var(--line); }
 .leaflet-bar a:hover { background: #1b2430; color: var(--amber); }
@@ -580,8 +580,6 @@ input[type='range']:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 2px 
   .row-2 { grid-template-columns: 1fr; }
   .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .brand h1 { font-size: 26px; }
-  .route-tags { display: none; }
-  .is-recommended .route-title::after { content: 'Recommended'; margin-top: 3px; font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; color: var(--amber); }
 }
 
 @media (prefers-reduced-motion: reduce) {
