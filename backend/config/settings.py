@@ -25,6 +25,10 @@ ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1" if DEBUG 
 for _host_var in ("RENDER_EXTERNAL_HOSTNAME", "VERCEL_URL", "VERCEL_BRANCH_URL", "VERCEL_PROJECT_PRODUCTION_URL"):
     if _host := os.environ.get(_host_var):
         ALLOWED_HOSTS.append(_host)
+if os.environ.get("VERCEL"):
+    # A Vercel project is reachable on several generated *.vercel.app aliases (deployment, branch,
+    # team); only traffic for this project is routed here, so trust the whole suffix.
+    ALLOWED_HOSTS.append(".vercel.app")
 
 INSTALLED_APPS = [
     # DRF's request/throttle machinery imports the auth models (AnonymousUser) even though we
